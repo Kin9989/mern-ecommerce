@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProductAction ,fetchProductsAction } from "../../../redux/slices/products/productSlices";
@@ -35,6 +35,21 @@ export default function ManageStocks() {
     error,
   } = useSelector((state) => state?.products);
   
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(products?.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products?.slice(indexOfFirstItem, indexOfLastItem);
+  const startIndex = (currentPage - 1) * itemsPerPage + 1;
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -247,6 +262,38 @@ export default function ManageStocks() {
               </div>
             </div>
           </div>
+
+          <div className="mt-4 flex items-center justify-between">
+          <div className="text-gray-600 font-medium text-[16px]">
+            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, products?.length)} of {products?.length} products
+          </div>
+          <div className="flex items-center">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white"
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber)}
+                className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white ${currentPage === pageNumber ? "bg-blue-600 text-[#fff] hover:bg-blue-500" : "text-gray-700 hover:bg-blue-500 "
+                  }`}
+              >
+                {pageNumber}
+              </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white"
+            >
+              Next
+            </button>
+          </div>
+        </div>
         </div>
       )}
     </div>

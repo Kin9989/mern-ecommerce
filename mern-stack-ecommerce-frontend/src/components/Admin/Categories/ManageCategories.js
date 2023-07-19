@@ -22,15 +22,6 @@ const ManageCategories = () => {
     error,
   } = useSelector((state) => state?.categories);
 
-  // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(categories?.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = categories?.slice(indexOfFirstItem, indexOfLastItem);
-  const startIndex = (currentPage - 1) * itemsPerPage + 1;
-
   // Delete category handler
   const deleteCategoryHandler = (id) => {
     Swal.fire({
@@ -56,6 +47,27 @@ const ManageCategories = () => {
     });
   };
 
+  // Pagination states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPageOptions = [5, 10, 15, 20];
+  const [selectedItemsPerPage, setSelectedItemsPerPage] = useState(10);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1);
+  };
+  
+  const filteredCategories = categories?.filter(category =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const totalPages = Math.ceil(filteredCategories?.length / selectedItemsPerPage);
+  const startIndex = (currentPage - 1) * selectedItemsPerPage;
+  const endIndex = Math.min(startIndex + selectedItemsPerPage, filteredCategories?.length);
+  const currentItems = filteredCategories?.slice(startIndex, endIndex);
+  
+
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -63,18 +75,18 @@ const ManageCategories = () => {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
-      <div className="sm:flex-auto">
-        <h1 className="text-xl font-semibold text-gray-900">
-             List of categories
-        </h1>
+        <div className="sm:flex-auto">
+          <h1 className="text-xl font-semibold text-gray-900">
+            List of categories
+          </h1>
           <div className="flex items-center mt-2 text-sm text-gray-700">
-          <svg fill="#000000" width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-          <g id="SVGRepo_iconCarrier"> <g data-name="29 online shop 2" id="_29_online_shop_2"> <path d="M58.5,3.5H5.5a2,2,0,0,0-2,2v53a2,2,0,0,0,2,2h53a2,2,0,0,0,2-2V5.5A2,2,0,0,0,58.5,3.5Zm0,2v7.167H5.5V5.5Zm-53,53V14.667h53l0,43.833Z"/> <path d="M15.5,7.046a2.037,2.037,0,1,0,2,2.037,2.018,2.018,0,0,0-2-2.037Z"/> <path d="M9.5,7.046a2.037,2.037,0,1,0,2,2.037,2.018,2.018,0,0,0-2-2.037Z"/> <path d="M21.5,7.046a2.037,2.037,0,1,0,2,2.037,2.018,2.018,0,0,0-2-2.037Z"/> <path d="M43.171,27.1a9.81,9.81,0,0,0-3.411-2.479,8.143,8.143,0,0,0-2.786-.608,4.212,4.212,0,0,0-2.92.614,4.271,4.271,0,0,0-.755.787,3.053,3.053,0,0,1-.354.4,1.3,1.3,0,0,1-1.877.012,3.078,3.078,0,0,1-.367-.415,4.246,4.246,0,0,0-.741-.776,4.214,4.214,0,0,0-2.928-.625,8.149,8.149,0,0,0-2.788.606,9.809,9.809,0,0,0-3.415,2.482l-2.57,2.84a1,1,0,0,0,0,1.342l3.66,4.05a1,1,0,0,0,.741.329h0a1,1,0,0,0,.74-.328L25,33.576v11.43a1,1,0,0,0,1,1H38a1,1,0,0,0,1-1V33.576l1.6,1.762a1,1,0,0,0,.74.328h0a1,1,0,0,0,.741-.329l3.66-4.05a1,1,0,0,0,0-1.342Zm-1.833,6.073-2.6-2.863a1,1,0,0,0-1.74.672v13.02H27V30.986a1,1,0,0,0-1.74-.672l-2.6,2.863-2.313-2.561,1.963-2.168a7.78,7.78,0,0,1,2.708-1.981,6.146,6.146,0,0,1,2.114-.452,2.658,2.658,0,0,1,1.6.206,2.689,2.689,0,0,1,.405.444,5.022,5.022,0,0,0,.628.686,3.293,3.293,0,0,0,4.482-.012,5.015,5.015,0,0,0,.614-.674,2.708,2.708,0,0,1,.418-.455,2.721,2.721,0,0,1,1.592-.2,6.139,6.139,0,0,1,2.112.454,7.78,7.78,0,0,1,2.7,1.978l1.963,2.169Z"/> <path d="M55.4,9.083l.813-.827a1,1,0,0,0-1.428-1.4l-.786.8-.786-.8a1,1,0,0,0-1.428,1.4l.813.827-.813.828a1,1,0,0,0,1.428,1.4l.786-.8.786.8a1,1,0,0,0,1.428-1.4Z"/> <path d="M44.5,10.083h4a1,1,0,0,0,0-2h-4a1,1,0,0,0,0,2Z"/> <path d="M10.519,33.9l5.13-4.387a1,1,0,0,0-1.3-1.52l-6,5.13a1,1,0,0,0-.018,1.505l6,5.37a1,1,0,0,0,1.334-1.49Z"/> <path d="M49.649,27.99a1,1,0,0,0-1.3,1.52l5.13,4.387-5.148,4.608a1,1,0,1,0,1.334,1.49l6-5.37a1,1,0,0,0-.018-1.505Z"/> </g> </g>
-          </svg>
+            <svg fill="#000000" width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+              <g id="SVGRepo_iconCarrier"> <g data-name="29 online shop 2" id="_29_online_shop_2"> <path d="M58.5,3.5H5.5a2,2,0,0,0-2,2v53a2,2,0,0,0,2,2h53a2,2,0,0,0,2-2V5.5A2,2,0,0,0,58.5,3.5Zm0,2v7.167H5.5V5.5Zm-53,53V14.667h53l0,43.833Z" /> <path d="M15.5,7.046a2.037,2.037,0,1,0,2,2.037,2.018,2.018,0,0,0-2-2.037Z" /> <path d="M9.5,7.046a2.037,2.037,0,1,0,2,2.037,2.018,2.018,0,0,0-2-2.037Z" /> <path d="M21.5,7.046a2.037,2.037,0,1,0,2,2.037,2.018,2.018,0,0,0-2-2.037Z" /> <path d="M43.171,27.1a9.81,9.81,0,0,0-3.411-2.479,8.143,8.143,0,0,0-2.786-.608,4.212,4.212,0,0,0-2.92.614,4.271,4.271,0,0,0-.755.787,3.053,3.053,0,0,1-.354.4,1.3,1.3,0,0,1-1.877.012,3.078,3.078,0,0,1-.367-.415,4.246,4.246,0,0,0-.741-.776,4.214,4.214,0,0,0-2.928-.625,8.149,8.149,0,0,0-2.788.606,9.809,9.809,0,0,0-3.415,2.482l-2.57,2.84a1,1,0,0,0,0,1.342l3.66,4.05a1,1,0,0,0,.741.329h0a1,1,0,0,0,.74-.328L25,33.576v11.43a1,1,0,0,0,1,1H38a1,1,0,0,0,1-1V33.576l1.6,1.762a1,1,0,0,0,.74.328h0a1,1,0,0,0,.741-.329l3.66-4.05a1,1,0,0,0,0-1.342Zm-1.833,6.073-2.6-2.863a1,1,0,0,0-1.74.672v13.02H27V30.986a1,1,0,0,0-1.74-.672l-2.6,2.863-2.313-2.561,1.963-2.168a7.78,7.78,0,0,1,2.708-1.981,6.146,6.146,0,0,1,2.114-.452,2.658,2.658,0,0,1,1.6.206,2.689,2.689,0,0,1,.405.444,5.022,5.022,0,0,0,.628.686,3.293,3.293,0,0,0,4.482-.012,5.015,5.015,0,0,0,.614-.674,2.708,2.708,0,0,1,.418-.455,2.721,2.721,0,0,1,1.592-.2,6.139,6.139,0,0,1,2.112.454,7.78,7.78,0,0,1,2.7,1.978l1.963,2.169Z" /> <path d="M55.4,9.083l.813-.827a1,1,0,0,0-1.428-1.4l-.786.8-.786-.8a1,1,0,0,0-1.428,1.4l.813.827-.813.828a1,1,0,0,0,1.428,1.4l.786-.8.786.8a1,1,0,0,0,1.428-1.4Z" /> <path d="M44.5,10.083h4a1,1,0,0,0,0-2h-4a1,1,0,0,0,0,2Z" /> <path d="M10.519,33.9l5.13-4.387a1,1,0,0,0-1.3-1.52l-6,5.13a1,1,0,0,0-.018,1.505l6,5.37a1,1,0,0,0,1.334-1.49Z" /> <path d="M49.649,27.99a1,1,0,0,0-1.3,1.52l5.13,4.387-5.148,4.608a1,1,0,1,0,1.334,1.49l6-5.37a1,1,0,0,0-.018-1.505Z" /> </g> </g>
+            </svg>
             <span className="ml-1">Total: </span>
-            <span className="ml-1 text-sm  font-bold text-blue-900">{ categories ? categories.length : 'Loading...'}</span>
+            <span className="ml-1 text-sm  font-bold text-blue-900">{categories ? categories.length : 'Loading...'}</span>
           </div>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -89,11 +101,23 @@ const ManageCategories = () => {
           </ButtonShort>
         </div>
       </div>
+      <div className="flex items-center mb-4">
+        <label htmlFor="search" className="mr-2 text-gray-600">
+          Search by Name:
+        </label>
+        <input
+          type="text"
+          id="search"
+          className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </div>
       {loading ? (
         <LoadingComponent />
       ) : error ? (
         <ErrorMsg message={error?.message} />
-      ) : categories?.length <= 0 ? (
+      ) : filteredCategories?.length <= 0 ? (
         <NoDataFound />
       ) : (
         <div className="mt-8 flex flex-col">
@@ -139,7 +163,7 @@ const ManageCategories = () => {
                     {currentItems?.map((category, index) => (
                       <tr key={category?._id} className="hover:bg-gray-200">
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 w-[150px]">
-                          {startIndex + index}
+                          {startIndex + index +1}
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                           <div className="flex items-center">
@@ -192,9 +216,26 @@ const ManageCategories = () => {
           </div>
           <div className="mt-4 flex items-center justify-between">
             <div className="text-gray-600 font-medium text-[16px]">
-              Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, categories?.length)} of {categories?.length} categories
+              Showing {startIndex + 1} to {endIndex} of {filteredCategories?.length} categories
             </div>
             <div className="flex items-center">
+              <div className="mr-4 flex items-center">
+                <label htmlFor="itemsPerPage" className="mr-2 text-gray-600">
+                  Items per page:
+                </label>
+                <select
+                  id="itemsPerPage"
+                  className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium text-center"
+                  value={selectedItemsPerPage}
+                  onChange={(e) => setSelectedItemsPerPage(Number(e.target.value))}
+                >
+                  {itemsPerPageOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -206,8 +247,7 @@ const ManageCategories = () => {
                 <button
                   key={pageNumber}
                   onClick={() => handlePageChange(pageNumber)}
-                  className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white ${
-                    currentPage === pageNumber ? "bg-blue-600 text-[#fff] hover:bg-blue-500" : "text-gray-700 hover:bg-blue-500 "}`}
+                  className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white ${currentPage === pageNumber ? "bg-blue-600 text-[#fff] hover:bg-blue-500" : "text-gray-700 hover:bg-blue-500 "}`}
                 >
                   {pageNumber}
                 </button>

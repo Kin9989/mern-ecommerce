@@ -4,6 +4,12 @@ import { loginUserAction } from "../../../redux/slices/users/usersSlice";
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 
+import './FormLogin.css'
+// import ImgFomSignin from "./ImgForm/FormSignin.svg"
+import ImgFomSignin from "./ImgForm/Beige Simple Fashion Poster.png"
+import ModelJiooDior from "./ImgForm/JisooDiorRB.png";
+import ButtonLogin0ut from "./ButtonLogin-out/ButtonLogin0ut";
+
 const Login = () => {
   //dispatch
   const dispatch = useDispatch();
@@ -37,74 +43,73 @@ const Login = () => {
   }, [userInfo]);
   return (
     <>
-      <section className="py-20 bg-gray-100 overflow-x-hidden">
-        <div className="relative container px-4 mx-auto">
-          <div className="" />
-          <div className="relative flex flex-wrap bg-white">
-            <div className="w-full md:w-4/6 px-4">
-              <div className="lg:max-w-3xl mx-auto py-20 px-4 md:px-10 lg:px-20">
-                <h3 className="mb-8 text-4xl md:text-5xl font-bold font-heading">
-                  Login to your account
+      <section className="relative overflow-x-hidden h-[800px] bg-form-login  ">
+        <div className="container px-4 mx-auto w-[50%] bg-[#fff] h-[68%] mt-[100px] rounded-3xl shadow-xl shadow-blue-500/50" >
+          <div className="flex flex-wrap items-center">
+            <div className="w-full lg:w-3/6 px-4 mb-12 lg:mb-0">
+              <div className="py-20 text-center">
+                <h3 className="mb-8 text-xl md:text-4xl font-bold font-heading font-serif">
+                  Login
                 </h3>
-                <p className="mb-10 font-semibold font-heading">
-                  Happy to see you again
-                </p>
-                {/* err */}
+
+                {/* errr */}
                 {error && <ErrorMsg message={error?.message} />}
-                <form
-                  className="flex flex-wrap -mx-4"
-                  onSubmit={onSubmitHandler}
-                >
-                  <div className="w-full md:w-1/2 px-4 mb-8 md:mb-12">
-                    <label>
-                      <h4 className="mb-5 text-gray-400 uppercase font-bold font-heading">
-                        Your Email
-                      </h4>
-                      <input
-                        name="email"
-                        value={email}
-                        onChange={onChangeHandler}
-                        className="p-5 w-full border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                        type="email"
-                      />
-                    </label>
+                {/* <p className="mb-10"></p> */}
+                <form onSubmit={onSubmitHandler}>
+                  <div className="relative ml-4 lg:my-5">
+                    <span class="material-symbols-outlined absolute top-[20%] ">
+                      account_circle
+                    </span>
+
+                    <input
+                      name="email"
+                      value={email}
+                      onChange={onChangeHandler}
+                      className="w-full mb-4 px-12 py-3 border-b border-black focus:outline-none "
+                      type="email"
+                    />
                   </div>
-                  <div className="w-full md:w-1/2 px-4 mb-12">
-                    <label>
-                      <h4 className="mb-5 text-gray-400 uppercase font-bold font-heading">
-                        Password
-                      </h4>
-                      <input
-                        name="password"
-                        value={password}
-                        onChange={onChangeHandler}
-                        className="p-5 w-full border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                        type="password"
-                      />
-                    </label>
+                  <div className="relative ml-4 lg:my-5">
+                    <span class="material-symbols-outlined absolute top-[20%]">
+                      lock
+                    </span>
+                    <input
+                      name="password"
+                      value={password}
+                      onChange={onChangeHandler}
+                      className="w-full mb-4 px-12 py-3 border-b border-black focus:outline-none "
+                      type="password"
+                    />
                   </div>
 
-                  <div className="w-full px-4">
-                    {loading ? (
-                      <LoadingComponent />
-                    ) : (
-                      <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
-                        Login
-                      </button>
-                    )}
-                  </div>
+                  {loading ? (
+                    <LoadingComponent />
+                  ) : (
+                    <button className=" mt-4  text-white font-bold font-heading rounded-md uppercase">
+
+                      <ButtonLogin0ut>Register</ButtonLogin0ut>
+                    </button>
+                  )}
+
                 </form>
+                <div className="flex justify-around mt-10">
+                  <div>
+                    Forgot Password
+                  </div>
+
+                  <div>
+                    Don't Have Accout
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div
-              className="w-full md:w-2/6 h-128 md:h-auto flex items-center lg:items-end px-4 pb-20 bg-cover bg-no-repeat"
-              style={{
-                backgroundImage:
-                  'url("https://cdn.pixabay.com/photo/2017/03/29/04/47/high-heels-2184095_1280.jpg")',
-              }}
-            ></div>
+            <div className="w-full lg:w-3/6 px-4 mb-12 lg:mb-0 lg:block md:hidden sm:hidden ">
+              <img src={ModelJiooDior} className="w-[290px] ml-[50px]" ></img>
+            </div>
           </div>
         </div>
+
       </section>
     </>
   );

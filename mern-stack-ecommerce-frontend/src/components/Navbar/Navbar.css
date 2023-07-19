@@ -8,11 +8,9 @@
 }
 
 .nav-categories-dropdown{
- 
-    position: fixed;
-     top: 130px;
-    left: 30%; 
-    transform: translateX(-50%);
+ /* position: absolute; */
+    
+    
 
 }
 
@@ -45,17 +43,3 @@
     padding-right: 10px;
 }
 
-@keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  .coupon-row {
-    animation: slide 100s linear infinite;
-  }
-  .coupon-row:hover {
-        animation-play-state: paused;
-  }

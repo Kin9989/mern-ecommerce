@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUserAction } from "../../../redux/slices/users/usersSlice";
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
+import './FormLogio.css'
+// import ImgFomSignin from "./ImgForm/FormSignin.svg"
+import ImgFomSignin from "./ImgForm/Beige Simple Fashion Poster.png"
+import ImgForm from "./ImgForm/background-signin.svg";
+import ButtonLogin0ut from "./ButtonLogin-out/ButtonLogin0ut";
+
+
 
 const RegisterForm = () => {
   //dispatch
@@ -35,7 +42,7 @@ const RegisterForm = () => {
   }, [user]);
   return (
     <>
-      <section className="relative overflow-x-hidden h-[1000px] bg-[#f8f8f8] ">
+      <section className="relative overflow-x-hidden h-[1000px] form_logio ">
         <div className="container px-4 mx-auto w-[50%] bg-[#ffff] h-[55%] mt-[100px] rounded-3xl shadow-xl shadow-blue-500/50" >
           <div className="flex flex-wrap items-center">
             <div className="w-full lg:w-3/6 px-4 mb-12 lg:mb-0">
@@ -57,7 +64,7 @@ const RegisterForm = () => {
                       name="fullname"
                       value={fullname}
                       onChange={onChangeHandler}
-                      className="w-full mb-4 px-12 py-3 border-b border-black focus:outline-none focus-visible:ring focus:border-none focus"
+                      className="w-full mb-4 px-12 py-3 border-b border-black focus:outline-none "
                       type="text"
                       placeholder="Full Name"
                     />
@@ -70,7 +77,7 @@ const RegisterForm = () => {
                       name="email"
                       value={email}
                       onChange={onChangeHandler}
-                      className="w-full mb-4 px-12 py-3 border-b border-black focus:ring-blue-300 focus:border-b-blue-30"
+                      className="w-full mb-4 px-12 py-3 border-b border-black focus:outline-none"
                       type="email"
                       placeholder="Enter your email"
                     />
@@ -84,7 +91,7 @@ const RegisterForm = () => {
                       name="password"
                       value={password}
                       onChange={onChangeHandler}
-                      className="w-full mb-4 px-12 py-3 border-b border-black focus:ring-blue-300 focus:border-b-blue-30"
+                      className="w-full mb-4 px-12 py-3 border-b border-black focus:outline-none"
                       type="password"
                       placeholder="Enter your password"
                     />
@@ -93,12 +100,16 @@ const RegisterForm = () => {
                   {loading ? (
                     <LoadingComponent />
                   ) : (
-                    <button className="mt-12 md:mt-16 bg-blue-800 hover:bg-blue-900 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
-                      Register
+                    <button className=" mt-4  text-white font-bold font-heading rounded-md uppercase">
+                      
+                      <ButtonLogin0ut>Register</ButtonLogin0ut>
                     </button>
                   )}
                 </form>
               </div>
+            </div>
+            <div className="w-full lg:w-3/6 px-4 mb-12 lg:mb-0 lg:block md:hidden sm:hidden">
+            <img src={ImgFomSignin} className="mt-[-2px]" ></img>
             </div>
           </div>
         </div>

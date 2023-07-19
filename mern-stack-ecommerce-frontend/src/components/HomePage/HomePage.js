@@ -73,12 +73,13 @@ export default function Example() {
   return (
     <div className="bg-white overflow-x-hidden">
       <main>
+                {/* <NavbarReal></NavbarReal> */}
         {/* <ProductSearch></ProductSearch> */}
         {/* Hero */}
-        {/* <NavbarReal></NavbarReal> */}
+
         {/* <ImageSlider></ImageSlider> */}
         <BannerHomePage></BannerHomePage>
-        <ProductFuture></ProductFuture>
+        
         <IntroductionService></IntroductionService>
         <AboutUs></AboutUs>
       
@@ -96,7 +97,7 @@ export default function Example() {
         <ProductProcess></ProductProcess>
         <ProductBenefit></ProductBenefit>
         <VideoHp></VideoHp>
-
+        <ProductFuture></ProductFuture>
         <ProductListPopup></ProductListPopup>
         <CarouselCardCustomer />
         <MokaSpeedDial></MokaSpeedDial>

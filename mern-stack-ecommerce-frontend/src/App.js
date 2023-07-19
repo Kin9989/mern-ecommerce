@@ -45,7 +45,9 @@ const App = () => {
   return (
     <div className="font-mokashop">
       <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavbarReal></NavbarReal>
+      
       {/* <NavbarReal></NavbarReal> */}
       {/* hide navbar if admin */}
       <Routes>

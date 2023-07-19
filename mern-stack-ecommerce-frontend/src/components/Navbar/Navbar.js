@@ -325,7 +325,7 @@ export default function Navbar() {
                       </Popover.Button>
 
 
-                      <Popover.Panel className={`nav-categories-dropdown z-10  w-screen max-w-xs  transform -translate-x-1/2 left-1/2 sm:px-0 ${isOpen ? 'block' : 'hidden'
+                      <Popover.Panel className={`absolute z-10  w-screen max-w-xs  transform -translate-x-1/2 left-1/2 sm:px-0 ${isOpen ? 'block' : 'hidden'
                         }`}>
 
                         <div className=" rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ">

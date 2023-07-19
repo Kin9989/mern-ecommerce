@@ -17,7 +17,7 @@ const ProductFuture = () => {
         {
 
             header: 'Coming Soon',
-            tag: 'New',
+            tag: 'Coming Soon',
             namePF: 'B33 Sneaker',
             imgPF: Shoe1,
             imgPF2: shoe1_1,
@@ -26,7 +26,7 @@ const ProductFuture = () => {
         },
         {
             header: 'Coming Soon',
-            tag: 'New',
+            tag: 'Coming Soon',
             namePF: 'B33 Sneaker',
             imgPF: shoe2,
             imgPF2: shoe2_1,
@@ -35,7 +35,7 @@ const ProductFuture = () => {
         },
         {
             header: 'Coming Soon',
-            tag: 'New',
+            tag: 'Coming Soon',
             namePF: 'B33 Sneaker',
             imgPF: shoe3,
             imgPF2: shoe3_1,
@@ -45,7 +45,7 @@ const ProductFuture = () => {
         },
         {
             header: 'Coming Soon',
-            tag: 'New',
+            tag: 'Coming Soon',
             namePF: 'B33 Sneaker',
             imgPF: shoe4,
             imgPF2: shoe4_1,
@@ -55,7 +55,7 @@ const ProductFuture = () => {
         },
         {
             header: 'Coming Soon',
-            tag: 'New',
+            tag: 'Coming Soon',
             namePF: 'B33 Sneaker',
             imgPF: shoe5,
             imgPF2: shoe5_1,
@@ -65,7 +65,7 @@ const ProductFuture = () => {
         },
         {
             header: 'Coming Soon',
-            tag: 'New',
+            tag: 'Coming Soon',
             namePF: 'B33 Sneaker',
             imgPF: shoe6,
             imgPF2: shoe6_1,
@@ -77,40 +77,45 @@ const ProductFuture = () => {
 
     return (
 
+        <>
+            <h1 id="favorites-heading" className='mb-10 uppercase text-[35px] font-semibold text-[#1a3760] text-center mt-10 font-serif '>
+                Trending Products
+            </h1>
+            <div className="grid grid-cols-3 place-items-center gap-y-10 overflow-hidden">
+                {ImgProductFuture.map((product, index) => (
+                    <div key={index} className="group overflow-hidden">
+                        <div className="relative w-[400px] h-[400px]  ">
+                            <div className="z-10 absolute top-5 left-2  text-[#757575] font-thin font-serif group-hover:text-[#000] ">
 
-        <div className="grid grid-cols-3 place-items-center gap-y-10 overflow-hidden">
-            {ImgProductFuture.map((product, index) => (
-                <div key={index} className="group overflow-hidden">
-                    <div className="relative w-[400px] h-[400px]  ">
-                        <div className="z-10 absolute top-5 left-2  text-[#757575] font-thin font-serif group-hover:text-[#000] ">
+                                {/* <span className=""> {product.header}</span> */}
 
-                            {/* <span className=""> {product.header}</span> */}
-
+                            </div>
+                            <div className="z-10 absolute top-0 right-[-50px] bg-[#e35353] w-[280px] rotate-[45deg] text-[#fff] font-thin font-serif group-hover:text-[#000]">
+                                <span className="mx-[150px]">{product.tag}</span>
+                            </div>
+                            <img
+                                src={product.imgPF}
+                                alt={`Product ${index + 1}`}
+                                className="absolute inset-0 w-[120%] h-full transition-opacity duration-300 hover:opacity-0"
+                            />
+                            <img
+                                src={product.imgPF2}
+                                alt={`Product ${index + 1}`}
+                                className="absolute inset-0 w-full h-full transition-opacity duration-300 opacity-0 hover:opacity-100"
+                            />
                         </div>
-                        <div className="z-10 absolute top-0 right-[-50px] bg-[#250606] w-[280px] rotate-[45deg] text-[#757575] font-thin font-serif group-hover:text-[#000]">
-                            <span className="mx-[180px]">{product.tag}</span>
-                        </div>
-                        <img
-                            src={product.imgPF}
-                            alt={`Product ${index + 1}`}
-                            className="absolute inset-0 w-[120%] h-full transition-opacity duration-300 hover:opacity-0"
-                        />
-                        <img
-                            src={product.imgPF2}
-                            alt={`Product ${index + 1}`}
-                            className="absolute inset-0 w-full h-full transition-opacity duration-300 opacity-0 hover:opacity-100"
-                        />
+                        <p className=" text-[#000] font-thin font-serif">Price Expected: {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(product.priceExpected)}</p>
+                        <p className=" text-[#757575] font-thin font-serif text-sm">{product.namePF}</p>
+
+                        <p className=" text-[#757575] font-thin font-serif text-sm opacity-0 group-hover:opacity-100    ">{product.desc}</p>
+
+
+
                     </div>
-                    <p className=" text-[#000] font-thin font-serif">Price Expected: {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(product.priceExpected)}</p>
-                    <p className=" text-[#757575] font-thin font-serif text-sm">{product.namePF}</p>
+                ))}
+            </div>
+        </>
 
-                    <p className=" text-[#757575] font-thin font-serif text-sm opacity-0 group-hover:opacity-100    ">{product.desc}</p>
-
-
-
-                </div>
-            ))}
-        </div>
     );
 }
 

@@ -49,7 +49,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
     orderItems,
     shippingAddress,
     // totalPrice: couponFound ? totalPrice - totalPrice * discount : totalPrice,
-    totalPrice,
+    // totalPrice,
   });
 
   //Update the product qty
@@ -95,6 +95,17 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
   });
   res.send({ url: session.url });
 });
+
+
+
+
+
+
+
+
+
+
+
 
 //@desc get all orders
 //@route GET /api/v1/orders

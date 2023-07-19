@@ -6,19 +6,25 @@ import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import NoDataFound from "../../NoDataFound/NoDataFound";
 
 export default function Customers() {
-  //dispatch
+  // dispatch
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchOrdersAction());
   }, [dispatch]);
-  //get data from store
+
+  // get data from store
   const { error, loading, orders } = useSelector((state) => state?.orders);
   const customers = orders?.orders;
-  //remove duplicates
-  const uniqueCustomers = customers?.filter((item, idx) => {
-    return customers?.map((customer) => customer?.id).indexOf(item.id) === idx;
-  });
-  
+
+  // remove duplicates
+  const uniqueCustomers = customers?.reduce((acc, customer) => {
+    const existingCustomer = acc.find((item) => item?.user?.fullname === customer?.user?.fullname);
+    if (!existingCustomer) {
+      acc.push(customer);
+    }
+    return acc;
+  }, []);
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center"></div>
@@ -37,62 +43,68 @@ export default function Customers() {
               <tr>
                 <th
                   scope="col"
-                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                >
                   Full Name
                 </th>
                 <th
                   scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
+                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                >
                   Email
                 </th>
                 <th
                   scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell">
+                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
+                >
                   Country
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
                   City
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
                   Phone
                 </th>
 
                 <th
                   scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
                   Postal Code
                 </th>
                 {/* <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                <span className="sr-only">Edit</span>
-              </th> */}
+                  <span className="sr-only">Edit</span>
+                </th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
               {uniqueCustomers?.map((customer) => (
                 <tr key={customer?.user?.fullname}>
-                <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
-                  {customer?.user?.fullname}
-                </td>
-                <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
-                  {customer?.user?.email}
-                </td>
-                <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                  {customer?.user?.shippingAddress?.country}
-                </td>
-                <td className="px-3 py-4 text-sm text-gray-500">
-                  {customer?.user?.shippingAddress?.city}
-                </td>
-                <td className="px-3 py-4 text-sm text-gray-500">
-                  {customer?.user?.shippingAddress?.phone}
-                </td>
-                <td className="px-3 py-4 text-sm text-gray-500">
-                  {customer?.user?.shippingAddress?.postalCode}
-                </td>
-              </tr>
+                  <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
+                    {customer?.user?.fullname}
+                  </td>
+                  <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
+                    {customer?.user?.email}
+                  </td>
+                  <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
+                    {customer?.user?.shippingAddress?.country}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.user?.shippingAddress?.city}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.user?.shippingAddress?.phone}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.user?.shippingAddress?.postalCode}
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
